@@ -5,9 +5,24 @@ Taulut taulut = new Taulut();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapPost("/Henkilot", (Henkilot henkilot) =>
+
+app.MapPost("/henkilot", (Ihmiset henkilo) =>
 {
-    taulut.LisaaHenkilo(henkilot.Nimi, henkilot.puhelin);
+    taulut.LisaaHenkilo(henkilo.Nimi, henkilo.Puhelin);
+    return Results.Ok("Henkilö lisätty!");
+});
+
+app.MapPost("/Lemmikit", (Elaimet Lemmikki) =>
+{
+    taulut.LisaaLemmikki(Lemmikki.Nimi, Lemmikki.Rotu, Lemmikki.OmistajaID);
+    return Results.Ok("Lemmikki lisätty!");
+});
+
+app.MapGet("/puhelin/{lemmikinNimi}", (string lemmikinNimi) =>
+{
+    var numero = taulut.NaytaPuhelin(lemmikinNimi);
+    return numero is null ? Results.NotFound("Omistajaa ei löytynyt")
+    : Results.Ok(numero);
 });
 
 app.Run();

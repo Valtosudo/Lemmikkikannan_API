@@ -2,8 +2,18 @@
 
 using Microsoft.Data.Sqlite;
 
-public record Henkilot(int Id, string Nimi, int puhelin);
-public record Lemmikit(int Id, string Nimi, string Rotu, int OmistajaID);
+public class Ihmiset
+{
+    public string? Nimi { get; set; }
+    public int Puhelin { get; set; }
+}
+
+public class Elaimet
+{
+    public string? Nimi { get; set; }
+    public string? Rotu { get; set; }
+    public int OmistajaID { get; set; }
+}
 
 public class Taulut
 {
@@ -59,7 +69,7 @@ public class Taulut
             command.ExecuteNonQuery();
         }
     }
-    public void NaytaPuhelin(string lemmikinNimi)
+    public int? NaytaPuhelin(string lemmikinNimi)
     {
         using (var connection = new SqliteConnection(_connectionString))
         {
@@ -67,14 +77,12 @@ public class Taulut
             var command = connection.CreateCommand();
             command.CommandText = @"SELECT H.Puhelin FROM Henkilot H JOIN Lemmikit L ON H.id = L.OmistajaID WHERE L.Nimi = $lemmikinNimi;";
             command.Parameters.AddWithValue("$lemmikinNimi", lemmikinNimi);
-            using (var reader = command.ExecuteReader())
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                while (reader.Read())
-                {
-                    int puhelin = reader.GetInt32(0);
-                    Console.WriteLine($"Lemmikin '{lemmikinNimi}' omistajan puhelinnumero on: {puhelin}");
-                }
+                return reader.GetInt32(0);
             }
+            return null;
         }
     }
 }
