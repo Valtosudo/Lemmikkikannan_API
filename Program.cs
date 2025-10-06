@@ -14,7 +14,7 @@ app.MapPost("/henkilot", (Ihmiset henkilo) =>
 
 app.MapPost("/Lemmikit", (Elaimet Lemmikki) =>
 {
-    taulut.LisaaLemmikki(Lemmikki.Nimi, Lemmikki.Rotu, Lemmikki.OmistajaID);
+    taulut.LisaaLemmikki(Lemmikki.Nimi, Lemmikki.Rotu, Lemmikki.OmistajaNimi);
     return Results.Ok("Lemmikki lisätty!");
 });
 
