@@ -8,13 +8,13 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapPost("/henkilot", (Ihmiset henkilo) =>
 {
-    taulut.LisaaHenkilo(henkilo.Nimi, henkilo.Puhelin);
+    taulut.LisaaHenkilo(henkilo.Nimi, henkilo.Puhelin, henkilo.Id);
     return Results.Ok("Henkilö lisätty!");
 });
 
-app.MapPost("/Lemmikit", (Elaimet Lemmikki) =>
+app.MapPost("/lemmikit", (Elaimet Lemmikki) =>
 {
-    taulut.LisaaLemmikki(Lemmikki.Nimi, Lemmikki.Rotu, Lemmikki.OmistajaNimi);
+    taulut.LisaaLemmikki(Lemmikki.Nimi, Lemmikki.Rotu, Lemmikki.OmistajaId);
     return Results.Ok("Lemmikki lisätty!");
 });
 
