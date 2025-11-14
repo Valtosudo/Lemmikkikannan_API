@@ -3,6 +3,7 @@
 http://localhost:5216 on osoite
 
 Tämä käynnistää Docker containerin ja pystyt HTTPie:llä nyt lisäämään henkilön, lemmikin ja hakemaan omistajan puhelinnumeron lemmikin nimellä
+
 docker run -d -p 5216:5216 lemmikkikannan_api  
 
 
@@ -16,6 +17,7 @@ Post http://localhost:5216/henkilot
 }
 
 Lemmikin lisääminen 
+
 Post http://localhost:5216/lemmikit
 {
   "Nimi": "lemmikin nimi",
@@ -24,6 +26,7 @@ Post http://localhost:5216/lemmikit
 }
 
 Puhelinnumeron saaminen lemmikin nimellä
+
 http://localhost:5216/puhelin/lemmikin nimi
 
 
